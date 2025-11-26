@@ -1,0 +1,184 @@
+/* 
+Variables CSS
+Nomenclatura
+    [Propiedad]-[Componente]-[variante]-[Estado]
+Propiedades:
+    -Color
+    -Fuente
+    -Espaciado
+    -Sombra
+Componente:
+    -Background
+    -Surface
+    -tema (Primary/Secondary)
+    -Feedback (Alert, Warning, Danger)
+Estado:
+    -Hover
+    -Active
+    -Disabled
+    -Clicked
+
+
+Jearquia de componentes
+    -Primary
+    -Secondary
+    -outlined
+*/
+:root {
+    /* Background */
+    --color-background: hsl(0, 0%, 92%);
+    --color-foreground: hsl(0, 0%, 8%);
+
+    /* semi transparency */
+    --color-semi-transparency: rgba(255, 255, 255, 0.35);
+    --color-semi-transparency-variant: rgba(255, 255, 255, 0.7);
+
+    /* Surfaces */
+    --color-surface: hsl(0, 0%, 98%);
+    --color-on-surface: hsl(0, 0%, 10%);
+
+    --color-surface-variant: hsl(0, 0%, 95%);
+    --color-on-surface-variant: hsl(0, 0%, 18%);
+
+    /* Borders */
+    --color-border: hsl(0, 0%, 88%);
+    --color-border-variant: hsl(0, 0%, 78%);
+
+    /* Intercative */
+    --color-primary: #3b82f6;
+    --color-on-primary: #ffffff;
+    --color-primary-hover: #2563eb;
+    --color-primary-active: #1e3a8a;
+    --color-primary-disabled: #93c5fd;
+
+    --color-secondary: #64748b;
+    --color-on-secondary: #ffffff;
+    --color-secondary-hover: #475569;
+    --color-secondary-disabled: #cbd5e1;
+
+    /* Status Colors */
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+
+    /* ======================================================================
+     TYPOGRAPHY SYSTEM
+     ====================================================================== */
+
+    --font-sans: Inter, system-ui, sans-serif;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* ======================================================================
+     SPACING SCALE (Basado en 4px)
+     ====================================================================== */
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    --space-1: 0.25rem; /* 4px  */
+    --space-2: 0.5rem; /* 8px  */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.25rem; /* 20px */
+    --space-6: 1.5rem; /* 24px */
+    --space-8: 2rem; /* 32px */
+    --space-10: 2.5rem; /* 40px */
+
+    /* ======================================================================
+     RADII (Esquinas redondeadas)
+     ====================================================================== */
+
+    --radius-xs: 3px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* ======================================================================
+     SHADOWS
+     ====================================================================== */
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15);
+
+    /* ======================================================================
+     TRANSITIONS
+     ====================================================================== */
+
+    --transition-fast: 120ms ease;
+    --transition-medium: 180ms ease;
+    --transition-slow: 250ms ease;
+
+    /* ======================================================================
+     LAYOUT
+     ====================================================================== */
+
+    --sidebar-width: 260px;
+    --navbar-height: 56px;
+
+    --breakpoint-mobile: 768px;
+}
+
+/* ========================================================================
+   DARK MODE
+   ======================================================================== */
+
+.dark {
+    /* Background */
+    --color-background: hsl(0, 0%, 8%);
+    --color-foreground: hsl(0, 0%, 92%);
+
+    /* semi transparency */
+    --color-semi-transparency: rgba(153, 153, 153, 0.05);
+    --color-semi-transparency-variant: rgba(153, 153, 153, 0.95);
+
+    /* Surfaces */
+    --color-surface: hsl(0, 0%, 18%);
+    --color-on-surface: hsl(0, 0%, 98%);
+
+    --color-surface-variant: hsl(0, 0%, 13%);
+    --color-on-surface-variant: hsl(0, 0%, 88%);
+
+    /* Borders */
+    --color-border: hsl(0, 0%, 25%);
+    --color-border-variant: hsl(0, 0%, 35%);
+
+    /* Intercative */
+    --color-primary: #60a5fa;
+    --color-on-primary: #ffffff;
+    --color-primary-hover: #3b82f6;
+    --color-primary-active: #1e3a8a;
+    --color-primary-disabled: #1e3a8a;
+
+    --color-secondary: #64748b;
+    --color-on-secondary: #ffffff;
+    --color-secondary-hover: #475569;
+    --color-secondary-disabled: #cbd5e1;
+
+    --color-success: #4ade80;
+    --color-warning: #facc15;
+    --color-danger: #f87171;
+
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+    --sidebar-width: 260px;
+    --navbar-height: 56px;
+}
