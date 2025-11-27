@@ -94,9 +94,11 @@ const onInput = (e: Event) => {
 
 
     <!-- Error -->
-    <p v-if="error" class="input__error">
-      {{ typeof error === 'string' ? error : 'Campo inválido' }}
-    </p>
+     <div class="h-6">
+       <p v-if="error" class="input__error">
+         {{ typeof error === 'string' ? error : 'Campo inválido' }}
+       </p>
+     </div>
   </div>
 </template>
 
@@ -129,7 +131,7 @@ const onInput = (e: Event) => {
 
 
 
-  padding: 0 var(--space-3);
+  padding: 0 var(--space-2);
   transition: border-color 0.15s ease;
 }
 
@@ -174,7 +176,7 @@ const onInput = (e: Event) => {
 /* Mensajes */
 .input__error {
   font-size: var(--font-size-xs);
-  color: var(--color-error-dark);
+  color: var(--color-danger);
 }
 
 /* Tamaños */

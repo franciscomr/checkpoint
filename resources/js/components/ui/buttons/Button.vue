@@ -181,6 +181,7 @@ const buttonClasses = computed(() => [
   border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+    padding: 0.625rem 0.625rem;
 }
 
 @keyframes spin {

@@ -9,7 +9,6 @@ import { useForm } from '@inertiajs/vue3';
 const form = useForm({
     email: '',
     password: '',
-    remember: false,
 });
 
 const submit = () => {
@@ -31,7 +30,7 @@ const submit = () => {
             <div class="">
                 <!-- FORM -->
                 <form class="login__form" @submit.prevent="submit">
-                    <Input v-model="form.email" label="Usuario" placeholder="user@example.com" type="email" />
+                    <Input v-model="form.email" label="Usuario" placeholder="user@example.com" type="email" :error="form.errors.email" />
                     <Input v-model="form.password" label="Contraseña" placeholder="Abc12345" type="password" />
                     <div class="flex items-end justify-end">
                         <Button :loading="form.processing"> Iniciar sesión</Button>
@@ -44,7 +43,7 @@ const submit = () => {
 
 <style scoped>
 .login__form > * {
-    padding: 0.5rem 0rem; /* equivalente a p-4 en Tailwind */
+    padding: 0.125rem 0rem; /* equivalente a p-4 en Tailwind */
 }
 </style>
 

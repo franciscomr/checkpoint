@@ -21,8 +21,16 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
+         $identifier = config('auth.login_identifier', 'email');
+
+         if ($identifier === 'email'){
+            $rules = ['required', 'email'];
+         } else {
+            $rules = ['required', 'string'];
+         }
+
         return [
-            'email'    => ['required', 'email'],
+            $identifier => $rules,
             'password' => ['required'],
             'remember' => ['nullable', 'boolean'],
         ];
