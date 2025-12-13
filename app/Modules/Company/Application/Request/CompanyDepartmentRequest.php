@@ -4,7 +4,7 @@ namespace App\Modules\Company\Application\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BranchRequest extends FormRequest
+class CompanyDepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,21 +23,16 @@ class BranchRequest extends FormRequest
     {
         $rules = [
             'company_id' => ['required','exists:companies,id'],
-            'address' => ['required', 'min:3', 'max:96'],
-            'city' => ['required', 'min:3', 'max:32'],
-            'state' => ['required', 'min:3', 'max:32'],
-            'city' => ['required', 'min:3', 'max:32'],
-            'postal_code' => ['required', 'digits:5'],
-            'is_active'   => ['nullable','boolean'],
+            'department_template_id' => ['required','exists:department_templates,id'],
+            'description' => ['nullable', 'string', 'max:255'],
         ];
         if ($this->isMethod('post')) {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:branches'],
+                'name' => ['required', 'string', 'max:255'],
             ];
-        } else if ($this->isMethod('put')) {
-            $id = $this->route('branches') ?? $this->route('id');
+        } else if ($this->isMethod('patch')) {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:branches,name,' . $id],
+                'name' => ['sometimes', 'string', 'max:255'],
             ];
         }
 

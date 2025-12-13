@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('tax_id')->unique();
-            $table->string('logo_path')->nullable();
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('postal_code');
-            $table->boolean('is_active')->default(true);
+            $table->foreignId('branch_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('company_position_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('employee_code')->unique()->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('photo_path')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('employees');
     }
 };

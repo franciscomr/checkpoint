@@ -10,13 +10,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use HasFactory, SoftDeletes, AssignAuditFields;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'tax_id', 'logo_path', 'address', 'city', 'state', 'postal_code'];
+        'name', 'tax_id', 'logo_path', 'address', 'city', 'state', 'postal_code'
+        ,'created_by','updated_by'
+    ];
 
     public function branches():HasMany
     {
         return $this->hasMany(Branch::class);
+    }
+
+    public function departments():HasMany
+    {
+        return $this->hasMany(CompanyDepartment::class);
     }
 }

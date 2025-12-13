@@ -5,24 +5,25 @@ namespace App\Modules\Company\Domain\Models;
 use App\Modules\Shared\Infrastructure\Traits\AssignAuditFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Branch extends Model
+class DepartmentTemplate extends Model
 {
     use HasFactory, SoftDeletes, AssignAuditFields;
 
     protected $fillable = [
-        'company_id', 'name', 'address', 'city', 'state','postal_code'];
+        'name',
+        'description'
+    ];
 
-    public function company():BelongsTo
+    public function positions():HasMany
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(PositionTemplate::class);
     }
 
-    public function employees():HasMany
+    public function companyDepartments(): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(CompanyDepartment::class, 'department_template_id');
     }
 }

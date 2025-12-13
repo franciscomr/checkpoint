@@ -33,11 +33,11 @@ class CompanyRequest extends FormRequest
         ];
         if ($this->isMethod('post')) {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:companies'],
+                'name' => ['required', 'min:3', 'max:32', 'unique:companies,name'],
                 'tax_id' => ['required',  'min:3', 'max:64', 'unique:companies,tax_id'],
             ];
-        } else {
-            $id = $this->route('company') ?? $this->route('id');
+        } else if ( $this->isMethod('put') ) {
+            $id = $this->route('companies') ?? $this->route('id');
             $rules += [
                 'name' => ["required", "min:3", "max:32", "unique:companies,id,{$id}" ],
                 'tax_id' => ["required",  "min:3", "max:64", "unique:companies,tax_id,{$id}" ],
@@ -45,5 +45,7 @@ class CompanyRequest extends FormRequest
         }
 
         return $rules;
+        
     }
+
 }

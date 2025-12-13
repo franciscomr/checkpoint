@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,5 +21,17 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+
+        $exceptions->render(function (ValidationException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => class_basename($e),
+                'error_code' => 'VALIDATION_ERROR',
+                'status' => 422,
+                'errors' => $e->errors(),
+                'timestamp' => now()->toISOString(),
+                'path' => $request->path(),
+            ], 422);
+        });
+
     })->create();

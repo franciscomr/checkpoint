@@ -16,4 +16,5 @@ class BranchRepository extends BaseRepository
     {
         return parent::__construct($model);
     }
+    
 }
