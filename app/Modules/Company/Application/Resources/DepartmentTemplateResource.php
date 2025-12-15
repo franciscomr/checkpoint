@@ -21,4 +21,15 @@ class DepartmentTemplateResource extends BaseJsonResource
             'deleted_at' => $this->deleted_at?->format('Y-m-d H:i:s'),
         ];
     }
+
+    protected function getRelationships(): array
+    {
+        return [
+            'company_departments' => [
+                'data' => CompanyDepartmentResource::collection(
+                    $this->whenLoaded('company_departments')
+                )
+            ]
+        ];
+    }
 }

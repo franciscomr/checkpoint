@@ -15,7 +15,6 @@ class BranchResource extends BaseJsonResource
     {
         return [
             'name' => $this->name,
-            'company_id' => $this->company_id,
             'address' => $this->address,
             'city' => $this->city,
             'state' => $this->state,
@@ -32,6 +31,11 @@ class BranchResource extends BaseJsonResource
             'company' => [
                 'data' => new CompanyResource(
                     $this->whenLoaded('company')
+                )
+            ],
+            'employees' => [
+                'data' => EmployeeResource::collection(
+                    $this->whenLoaded('employees')
                 )
             ]
         ];

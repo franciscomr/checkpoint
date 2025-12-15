@@ -6,6 +6,7 @@ use App\Modules\Company\Domain\Models\CompanyPosition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Modules\Company\Domain\Models\Company;
+use App\Modules\Company\Domain\Models\CompanyDepartment;
 use App\Modules\Company\Domain\Models\PositionTemplate;
 
 /**
@@ -26,6 +27,7 @@ class CompanyPositionFactory extends Factory
         return [
             'company_id' =>  Company::query()->inRandomOrder()->value('id') ?? Company::factory(),
             'position_template_id' =>  PositionTemplate::query()->inRandomOrder()->value('id') ?? PositionTemplate::factory(),
+            'company_department_id' =>  CompanyDepartment::query()->inRandomOrder()->value('id') ?? CompanyDepartment::factory(),
             'name' => $this->faker->jobTitle(),
             'description' => $this->faker->sentence(),
             'created_by' => User::query()->inRandomOrder()->value('id') ?? User::factory(),

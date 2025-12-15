@@ -8,6 +8,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyPositionResource extends BaseJsonResource
 {
+    protected string $resourceType = 'company_position';
+
+
     protected function getAttributes(): array
     {
         return [
@@ -22,9 +25,24 @@ class CompanyPositionResource extends BaseJsonResource
     protected function getRelationships(): array
     {
         return [
-            'template' => [
-                'data' => PositionTemplateResource::collection(
-                    $this->whenLoaded('template')
+            'company' => [
+                'data' => new CompanyResource(
+                    $this->whenLoaded('company')
+                )
+            ],
+            'company_department' => [
+                'data' => new CompanyDepartmentResource(
+                    $this->whenLoaded('company_department')
+                )
+            ],
+            'position_template' => [
+                'data' => new PositionTemplateResource(
+                    $this->whenLoaded('position_template')
+                )
+            ],
+            'employees' => [
+                'data' => EmployeeResource::collection(
+                    $this->whenLoaded('employees')
                 )
             ]
         ];

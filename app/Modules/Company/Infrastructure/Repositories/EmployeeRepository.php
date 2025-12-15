@@ -10,7 +10,7 @@ class EmployeeRepository extends BaseRepository
     protected array $searchable = ['first_name', 'last_name', 'email'];
     protected array $filterable = ['company_position_id', 'branch_id', 'is_active'];
     protected array $sortable = ['first_name', 'last_name', 'created_at'];
-    protected array $relations = ['position', 'branch', 'position.department'];
+    protected array $relations = ['company_position', 'branch'];
 
     public function __construct(Employee $model)
     {

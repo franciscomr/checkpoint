@@ -21,4 +21,15 @@ class PositionTemplateResource extends BaseJsonResource
             'deleted_at' => $this->deleted_at?->format('Y-m-d H:i:s'),
         ];
     }
+
+    protected function getRelationships(): array
+    {
+        return [
+            'company_positions' => [
+                'data' => BranchResource::collection(
+                    $this->whenLoaded('company_positions')
+                )
+            ]
+        ];
+    }
 }

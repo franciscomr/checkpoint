@@ -18,7 +18,7 @@ class CompanyDepartment extends Model
         'description',
     ];
 
-    public function template()
+    public function department_template()
     {
         return $this->belongsTo(DepartmentTemplate::class, 'department_template_id');
     }
@@ -28,8 +28,9 @@ class CompanyDepartment extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function positions()
+    public function company_positions()
     {
-        return $this->hasMany(CompanyPosition::class, 'company_department_id');
+        return $this->hasMany(CompanyPosition::class);
     }
+
 }

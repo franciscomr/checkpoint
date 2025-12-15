@@ -6,6 +6,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -21,17 +23,37 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-
-        $exceptions->render(function (ValidationException $e, $request) {
-            return response()->json([
-                'success' => false,
-                'message' => class_basename($e),
-                'error_code' => 'VALIDATION_ERROR',
-                'status' => 422,
-                'errors' => $e->errors(),
-                'timestamp' => now()->toISOString(),
-                'path' => $request->path(),
-            ], 422);
+        $exceptions->render(function (ValidationException $e, Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'error' => [
+                        //'id' => (string) Str::uuid(),
+                        'type' => 'validation_error',
+                        'title' => 'Validation failed',
+                        'status' => 422,
+                        'detail' => 'One or more fields are invalid.',
+                        'errors' => $e->errors(),
+                        'path' => $request->path(),
+                        'timestamp' => now()->toISOString(),
+                    ],
+                ], 422);
+            }
         });
+
+    $exceptions->render(function (HttpExceptionInterface $e, Request $request) {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'error' => [
+              //  'id' => (string) Str::uuid(),
+                'type' => $e->getStatusCode() == 404 ? 'Not Found': class_basename($e),
+                'title' => 'HTTP error',
+                'status' => $e->getStatusCode(),
+                'detail' => $e->getStatusCode() == 404 ? 'Route or Resource Not Found ': $e->getMessage(),
+                'path' => $request->path(),
+                'timestamp' => now()->toISOString(),
+            ],
+            ], $e->getStatusCode());
+        }
+    });
 
     })->create();

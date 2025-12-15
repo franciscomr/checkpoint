@@ -33,6 +33,11 @@ class CompanyResource extends BaseJsonResource
                 'data' => BranchResource::collection(
                     $this->whenLoaded('branches')
                 )
+            ],
+            'departments' => [
+                'data' => CompanyDepartmentResource::collection(
+                    $this->whenLoaded('departments')
+                )
             ]
         ];
     }

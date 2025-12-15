@@ -21,9 +21,10 @@ class BaseRepository implements BaseRepositoryInterface
         $perPage = $perPage ?? env('API_DEFAULT_PER_PAGE',10);
         $query = $this->model->newQuery();
 
-        if( !empty($params['include'])){
+        if( !empty($queryParams['include'])){
             $includes = explode(',', $queryParams['include']);
-            $query->with(array_intersect($includes, $this->relations));
+            $validIncludes = array_intersect($includes, $this->relations);
+            $query->with($validIncludes);
         }
 
         if (!empty($queryParams['search']) && !empty($this->searchable)) {

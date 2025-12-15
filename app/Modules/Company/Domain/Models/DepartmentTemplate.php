@@ -17,12 +17,7 @@ class DepartmentTemplate extends Model
         'description'
     ];
 
-    public function positions():HasMany
-    {
-        return $this->hasMany(PositionTemplate::class);
-    }
-
-    public function companyDepartments(): HasMany
+    public function company_departments(): HasMany
     {
         return $this->hasMany(CompanyDepartment::class, 'department_template_id');
     }

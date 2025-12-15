@@ -21,7 +21,7 @@ class Employee extends Model
         'photo_path',
     ];
 
-    public function position()
+    public function company_position()
     {
         return $this->belongsTo(CompanyPosition::class, 'company_position_id');
     }

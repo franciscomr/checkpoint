@@ -10,7 +10,7 @@ class BranchRepository extends BaseRepository
     protected array $searchable = ['name', 'city', 'state'];
     protected array $filterable = ['is_active', 'company_id'];
     protected array $sortable  = ['name', 'created_at'];
-    protected array $relations = ['company'];
+    protected array $relations = ['company', 'employees'];
 
     public function __construct(Branch $model)
     {

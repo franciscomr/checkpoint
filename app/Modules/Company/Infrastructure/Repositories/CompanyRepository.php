@@ -10,7 +10,7 @@ class CompanyRepository extends BaseRepository
     protected array $searchable = ['name', 'tax_id', 'city','state'];
     protected array $filterable = ['city', 'state', 'is_active'];
     protected array $sortable  = ['name','tax_id', 'created_at'];
-    protected array $relations = ['branches'];
+    protected array $relations = ['branches', 'departments'];
 
     public function __construct(Company $model)
     {

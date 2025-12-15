@@ -8,6 +8,7 @@ use App\Modules\Company\Application\Request\CompanyRequest;
 use App\Modules\Company\Application\Resources\CompanyResource;
 use App\Modules\Company\Application\Resources\CompanyCollection;
 use App\Modules\Company\Application\Resources\BranchCollection;
+use App\Modules\Company\Domain\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller

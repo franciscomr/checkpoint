@@ -21,18 +21,23 @@ class CompanyPosition extends Model
         'deleted_by',
     ];
 
-    public function template()
+    public function company()
     {
-        return $this->belongsTo(PositionTemplate::class, 'position_template_id');
+        return $this->belongsTo(Company::class);
     }
 
-    public function department()
+    public function company_department()
     {
         return $this->belongsTo(CompanyDepartment::class, 'company_department_id');
     }
 
+    public function position_template()
+    {
+        return $this->belongsTo(PositionTemplate::class, 'position_template_id');
+    }
+
     public function employees()
     {
-        return $this->hasMany(Employee::class, 'company_position_id');
+        return $this->hasMany(Employee::class);
     }
 }
