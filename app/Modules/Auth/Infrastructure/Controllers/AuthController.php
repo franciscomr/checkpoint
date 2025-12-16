@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Auth\Application\Request\LoginRequest;
 use App\Modules\Auth\Application\Resources\LoginResource;
 use App\Modules\Auth\Application\Services\LoginThrottleService;
+use App\Modules\Auth\Application\Services\SessionAuditService;
 use App\Modules\Auth\Domain\UseCases\AuthenticateUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +17,8 @@ class AuthController extends Controller
 {
     public function __construct(
         private AuthenticateUser $authenticateUser,
-        private LoginThrottleService $throttle)
+        private LoginThrottleService $throttle,
+        private SessionAuditService $sessionAudit)
     {
     }
 
@@ -33,19 +35,27 @@ class AuthController extends Controller
 
         $this->throttle->clear($request);
         $request->session()->regenerate();
+        $this->sessionAudit->register($request);
 
         return new LoginResource($user);
     }
 
     public function logout(Request $request): JsonResponse
     {
+        $this->sessionAudit->close($request);
         Auth::logout();
 
         $request->session()->invalidate();
-        $request->session()->regenerateToken();
 
         return response()->json([
             'message' => 'Logged out successfully',
+        ]);
+    }
+
+    public function me(Request $request): JsonResponse
+    {
+        return response()->json([
+            'data' => $request->user(),
         ]);
     }
 }

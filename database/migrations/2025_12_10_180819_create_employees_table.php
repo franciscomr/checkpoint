@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('employee_code')->unique()->nullable();
             $table->string('email')->nullable()->unique();
             $table->string('photo_path')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();

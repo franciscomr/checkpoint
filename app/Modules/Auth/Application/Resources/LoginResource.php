@@ -14,11 +14,7 @@ class LoginResource extends BaseJsonResource
     {
         return [
             'name' => $this->name,
-            'tax_id' => $this->tax_id,
-            'address' => $this->address,
-            'city' => $this->city,
-            'state' => $this->state,
-            'postal_code' => $this->postal_code,
+            'email' => $this->email,
             'is_active' => (bool) $this->is_active,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),

@@ -20,7 +20,7 @@ class AuthenticateUser
         if (!$user->is_active) {
             Auth::logout();
             throw ValidationException::withMessages([
-                'email' => ['Unable to sign in.'],
+                'email' => ['Unable to sign in isnotactive.'],
             ]);
         }
 
