@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PositionTemplateCollection extends ResourceCollection
 {
-     public $collects = PositionTemplateResource::class;
+    public $collects = PositionTemplateResource::class;
 
     /**
      * Transform the resource collection into an array.

@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Auth\Infrastructure\Controllers\AuthController;
 use App\Modules\Company\Infrastructure\Controllers\BranchController;
 use App\Modules\Company\Infrastructure\Controllers\CompanyController;
 use App\Modules\Company\Infrastructure\Controllers\CompanyDepartmentController;
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('v1')->group(function() {
+
+    Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
     Route::get('/companies',[CompanyController::class, 'index']);
     Route::post('/companies', [CompanyController::class, 'store']);
     Route::get('/companies/{id}',[CompanyController::class, 'show']);

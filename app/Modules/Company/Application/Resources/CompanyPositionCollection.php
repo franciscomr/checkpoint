@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CompanyPositionCollection extends ResourceCollection
 {
-    protected string $resourceType = 'company_position';
+    public $collects = CompanyPositionResource::class;
 
     /**
      * Transform the resource collection into an array.
