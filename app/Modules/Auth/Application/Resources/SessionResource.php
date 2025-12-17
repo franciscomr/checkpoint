@@ -16,6 +16,8 @@ class SessionResource extends BaseJsonResource
             'ip_address' => $this->ip_address,
             'platform' => $this->platform,
             'user_agent' => $this->user_agent,
+            'is_suspicious' => $this->is_suspicious,
+            'suspicious_reason' => $this->suspicious_reason,
             'logged_in_at' => $this->logged_in_at,
             'last_activity' => $this->last_activity
         ];

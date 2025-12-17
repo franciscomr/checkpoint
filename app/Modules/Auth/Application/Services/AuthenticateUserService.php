@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Modules\Auth\Domain\UseCases;
+namespace App\Modules\Auth\Application\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-class AuthenticateUser
+
+class AuthenticateUserService
 {
     public function execute(array $credentials):User
     {

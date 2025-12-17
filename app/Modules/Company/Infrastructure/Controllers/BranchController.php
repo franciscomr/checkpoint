@@ -22,15 +22,6 @@ class BranchController extends Controller
         return new BranchCollection($branches);
     }
 
-    public function show1(int $id, Request $request)
-    {
-        $includes = $request->query('include', '');
-        $includes = $includes ? explode(',', $includes) : [];
-
-        $branch = $this->repository->find($id, $includes);
-        return new BranchResource($branch);
-    }
-
         public function show(int $id, Request $request)
     {
         $includes = $request->query('include', '');

@@ -48,6 +48,32 @@ class SessionAuditService
 
     }
 
+    public function deleteSession(int $userId, string $sessionId)
+    {
+        $session = DB::table('sessions')
+        ->where('id', $sessionId)
+        ->where('user_id', $userId)
+        ->whereNull('logged_out_at')
+        ->first();
+
+        if (!$session) {
+            return response()->json([
+                'error' => [
+                'title' => 'Session not found',
+                'detail' => 'The session does not exist or is already closed.',
+                'status' => 404,
+                ],
+            ], 404);
+        }
+
+        DB::table('sessions')
+            ->where('id', $sessionId)
+            ->update([
+                'logged_out_at' => now(),
+                'last_activity' => now()->timestamp,
+            ]);
+    }
+
     protected function detectPlatform(?string $userAgent): string
     {
         $ua = strtolower($userAgent ?? '');

@@ -17,6 +17,7 @@ Route::prefix('v1')->middleware(['web'])->group(function() {
     Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
     Route::get('/sessions',[SessionController::class,'index'])->middleware('auth');
+    Route::delete('/sessions/{session}',[SessionController::class,'destroy'])->middleware('auth');
 
     Route::get('/companies',[CompanyController::class, 'index']);
     Route::post('/companies', [CompanyController::class, 'store']);
@@ -62,3 +63,4 @@ Route::prefix('v1')->middleware(['web'])->group(function() {
     Route::put('/employees/{id}', [EmployeeController::class, 'update']);
     Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
 });
+

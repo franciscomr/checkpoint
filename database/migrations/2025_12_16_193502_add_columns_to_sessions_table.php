@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('sessions', function (Blueprint $table) {
             $table->foreignId('employee_id')->nullable()->index();
             $table->string('platform')->nullable()->index();
+            $table->boolean('is_suspicious')->default(false)->after('platform');
+            $table->string('suspicious_reason')->nullable()->after('is_suspicious');
             $table->timestamp('logged_in_at')->nullable();
             $table->timestamp('logged_out_at')->nullable();
         });
@@ -25,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('sessions', function (Blueprint $table) {
-            //
+            $table->dropColumn(['employee_id','platform','is_suspicious', 'suspicious_reason','logged_in_at','logged_out_at']);
         });
     }
 };
