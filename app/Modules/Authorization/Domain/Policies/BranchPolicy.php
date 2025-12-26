@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Modules\Authorization\Domain\Policies;
+
+use App\Models\User;
+use App\Modules\Company\Domain\Models\Branch;
+
+class BranchPolicy
+{
+    public function viewAny(User $user): bool
+    {
+        return $user->hasAnyRole([
+            'super_admin',
+            'company_owner',
+            'company_admin'
+        ]);
+    }
+
+    public function create(User $user, int $companyId): bool
+    {
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasAnyRole(['company_owner', 'company_admin'])) {
+            return $user->companyId() === $companyId;
+        }
+        return false;
+    }
+
+    public function view(User $user, Branch $branch): bool
+    {
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasAnyRole(['company_owner', 'company_admin'])) {
+            return $user->companyId() === $branch->company_id;
+        }
+        return false;
+    }
+
+    public function update(User $user, Branch $branch): bool
+    {
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasRole('company_owner')) {
+            return $user->companyId() === $branch->company_id;
+        }
+        return false;
+    }
+
+    public function delete(User $user, Branch $branch): bool
+    {
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasRole('company_owner')) {
+            return $user->companyId() === $branch->company_id;
+        }
+        return false;
+    }
+}

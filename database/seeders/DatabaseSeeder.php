@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Modules\Authorization\PermissionSeeder;
+use Database\Seeders\Modules\Authorization\RoleSeeder;
+use Database\Seeders\Modules\Authorization\UserRoleSeeder;
+use Database\Seeders\Modules\Shared\Test\CompanyTestSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            //Testing
+            CompanyTestSeeder::class,
+
+            // Catálogos base
+            PermissionSeeder::class,
+            RoleSeeder::class,
+
+            // Asignaciones
+            UserRoleSeeder::class,
+
         ]);
     }
 }

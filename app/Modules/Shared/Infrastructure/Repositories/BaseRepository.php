@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Modules\Shared\Infrastructure\Repositories;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -17,11 +19,18 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function all(array $queryParams = [], ?int $perPage = null){
-        $perPage = $perPage ?? env('API_DEFAULT_PER_PAGE',10);
+    public function all(array $queryParams = [], ?int $perPage = null)
+    {
+        $perPage = $perPage ?? env('API_DEFAULT_PER_PAGE', 10);
         $query = $this->model->newQuery();
 
-        if( !empty($queryParams['include'])){
+
+        // 🔐 Filtro por contexto de usuario
+        if (Auth::check() && method_exists($this->model, 'scopeForUser')) {
+            $query->forUser(Auth::user());
+        }
+
+        if (!empty($queryParams['include'])) {
             $includes = explode(',', $queryParams['include']);
             $validIncludes = array_intersect($includes, $this->relations);
             $query->with($validIncludes);
@@ -55,8 +64,9 @@ class BaseRepository implements BaseRepositoryInterface
 
         return $query->paginate($perPage)->appends($queryParams);
     }
-    
-    public function find(int $id, array $includes = []) {
+
+    public function find(int $id, array $includes = [])
+    {
         $query = $this->model->withTrashed();
         $validIncludes = array_intersect($includes, $this->relations);
 
@@ -67,17 +77,20 @@ class BaseRepository implements BaseRepositoryInterface
         return $query->findOrFail($id);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->model->create($data);
     }
 
-    public function update(array $data, int $id) {
+    public function update(array $data, int $id)
+    {
         $record = $this->find($id);
         $record->update($data);
         return $record;
     }
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
         return $this->find($id)->delete();
     }
 

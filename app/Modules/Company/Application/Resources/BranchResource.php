@@ -14,6 +14,7 @@ class BranchResource extends BaseJsonResource
     protected function getAttributes(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
             'city' => $this->city,

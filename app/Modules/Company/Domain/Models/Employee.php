@@ -2,16 +2,18 @@
 
 namespace App\Modules\Company\Domain\Models;
 
+use App\Modules\Authorization\Domain\Models\Role;
 use App\Modules\Shared\Infrastructure\Traits\AssignAuditFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
     use HasFactory, SoftDeletes, AssignAuditFields;
 
-        protected $fillable = [
+    protected $fillable = [
         'branch_id',
         'company_position_id',
         'first_name',

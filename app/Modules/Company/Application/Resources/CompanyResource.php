@@ -16,7 +16,25 @@ class CompanyResource extends BaseJsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
+            'tax_id' => $this->tax_id,
+            'address' => $this->address,
+            'city' => $this->city,
+            'state' => $this->state,
+            'postal_code' => $this->postal_code,
+            'is_active' => (bool) $this->is_active,
+            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    protected function getRelationships(): array
+    {
+        return [
+            'branches' => [
+                'data' => BranchResource::collection(
+                    $this->whenLoaded('branches')
+                )
+            ]
         ];
     }
 }
