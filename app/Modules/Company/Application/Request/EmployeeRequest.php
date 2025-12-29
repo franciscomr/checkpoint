@@ -30,18 +30,16 @@ class EmployeeRequest extends FormRequest
         ];
         if ($this->isMethod('post')) {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:employees'],
-                'employee_code' => ['required',  'min:3', 'max:32', 'unique:employee,employee_code'],
-                'email' => 'required|email|unique:employees,email',
+                'employee_code' => ['nullable',  'min:3', 'max:32', 'unique:employee,employee_code'],
+                'email' => 'nullable|email|unique:employees,email',
 
 
             ];
         } else if ($this->isMethod('patch')) {
             $id = $this->route('employees') ?? $this->route('id');
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:employees,name,' . $id],
-                'employee_code' => ['required',  'min:3', 'max:32', 'unique:employees,employee_code'. $id],
-                'email' => ['required',  'email', 'unique:employees,email'. $id],
+                'employee_code' => ['nullable',  'min:3', 'max:32', 'unique:employees,employee_code' . $id],
+                'email' => ['nullable',  'email', 'unique:employees,email' . $id],
             ];
         }
 

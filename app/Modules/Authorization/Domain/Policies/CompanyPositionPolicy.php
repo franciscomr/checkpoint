@@ -7,26 +7,56 @@ use App\Modules\Company\Domain\Models\CompanyPosition;
 
 class CompanyPositionPolicy
 {
-    public function view(User $user, CompanyPosition $position): bool
+    public function viewAny(User $user): bool
     {
-        return $user->hasPermission('position.view', $position->company_id);
+        return $user->hasAnyRole([
+            'super_admin',
+            'company_owner',
+            'company_admin'
+        ]);
     }
-
 
     public function create(User $user, int $companyId): bool
     {
-        return $user->hasPermission('position.create', $companyId);
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasAnyRole(['company_owner', 'company_admin'])) {
+            return $user->companyId() === $companyId;
+        }
+        return false;
     }
 
-
-    public function update(User $user, CompanyPosition $position): bool
+    public function view(User $user, CompanyPosition $companyPosition): bool
     {
-        return $user->hasPermission('position.update', $position->company_id);
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasAnyRole(['company_owner', 'company_admin'])) {
+            return $user->companyId() === $companyPosition->company_id;
+        }
+        return false;
     }
 
-
-    public function delete(User $user, CompanyPosition $position): bool
+    public function update(User $user, CompanyPosition $companyPosition): bool
     {
-        return $user->hasPermission('position.delete', $position->company_id);
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasRole('company_owner')) {
+            return $user->companyId() === $companyPosition->company_id;
+        }
+        return false;
+    }
+
+    public function delete(User $user, CompanyPosition $companyPosition): bool
+    {
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+        if ($user->hasRole('company_owner')) {
+            return $user->companyId() === $companyPosition->company_id;
+        }
+        return false;
     }
 }

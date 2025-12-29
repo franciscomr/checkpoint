@@ -70,6 +70,17 @@ class User extends Authenticatable
         return $this->employee?->branch?->company_id;
     }
 
+    public function branchId(): ?int
+    {
+        if (!$this->employee_id) {
+            return null;
+        }
+
+        $this->loadMissing('employee.branch');
+
+        return $this->employee?->branch?->id;
+    }
+
     // =====================================================
     // Relationships
     // =====================================================

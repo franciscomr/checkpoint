@@ -2,6 +2,7 @@
 
 namespace App\Modules\Company\Domain\Models;
 
+use App\Models\User;
 use App\Modules\Shared\Infrastructure\Traits\AssignAuditFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,4 +34,12 @@ class CompanyDepartment extends Model
         return $this->hasMany(CompanyPosition::class);
     }
 
+    public function scopeForUser($query, User $user)
+    {
+        if ($user->hasRole('super_admin')) {
+            return $query;
+        }
+
+        return $query->where('company_id', $user->companyId());
+    }
 }

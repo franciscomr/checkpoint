@@ -16,4 +16,12 @@ class EmployeeRepository extends BaseRepository
     {
         parent::__construct($model);
     }
+
+    public function getCompanyForBranch(int $branchId)
+    {
+        $query = $this->model->withTrashed();
+        return $query->join('branches', 'employees.branch_id', '=', 'branches.id')
+            ->select('branches.company_id')
+            ->where('employees.branch_id', $branchId)->first();
+    }
 }

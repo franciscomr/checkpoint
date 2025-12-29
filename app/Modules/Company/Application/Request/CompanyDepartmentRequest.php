@@ -22,8 +22,8 @@ class CompanyDepartmentRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'company_id' => ['required','exists:companies,id'],
-            'department_template_id' => ['required','exists:department_templates,id'],
+            'company_id' => ['required', 'exists:companies,id'],
+            'department_template_id' => ['nullable', 'exists:department_templates,id'],
             'description' => ['nullable', 'string', 'max:255'],
         ];
         if ($this->isMethod('post')) {
