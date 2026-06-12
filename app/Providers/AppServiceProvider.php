@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Modules\Shared\Contracts\TenantResolverInterface;
+use App\Modules\Shared\Services\HeaderTenantResolver;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             TenantManager::class,
             fn () => new TenantManager()
+        );
+
+        $this->app->bind(
+            TenantResolverInterface::class,
+            HeaderTenantResolver::class
         );
     }
 

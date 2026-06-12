@@ -31,7 +31,7 @@ it('loads tenant from header', function () {
     $response = $this
         ->withHeader(
             'X-Tenant-ID',
-            'acme'
+            $tenant->id
         )
         ->getJson('/api/v1/tenant-test');
 

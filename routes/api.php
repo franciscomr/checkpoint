@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Auth\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -15,5 +16,8 @@ Route::prefix('v1')->group(function () {
         'tenant_id' => tenant_id(),
         ]);
     });
+
+    Route::post('/login', [AuthController::class, 'login'])->name('post.login');
+
 });
 

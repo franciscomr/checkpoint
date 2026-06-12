@@ -2,6 +2,7 @@
 
 namespace App\Modules\Shared\Middleware;
 
+use App\Modules\Shared\Contracts\TenantResolverInterface;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,10 @@ use App\Modules\Shared\Exceptions\TenantHeaderMissingException;
 
 class TenantMiddleware
 {
+    public function __construct(
+    protected TenantResolverInterface $resolver,
+    protected TenantManager $tenantManager,
+) {}
     /**
      * Handle an incoming request.
      *
@@ -18,17 +23,9 @@ class TenantMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $tenantSlug = $request->header('X-Tenant-ID');
+        $tenant = $this->resolver->resolve();
 
-        if (blank($tenantSlug)) {
-            throw new TenantHeaderMissingException();
-        }
-        
-        $tenant = app(TenantResolver::class)
-            ->resolve($tenantSlug);
-
-        app(TenantManager::class)
-            ->setTenant($tenant);
+        $this->tenantManager->setTenant($tenant);
 
         return $next($request);
     }
