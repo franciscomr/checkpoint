@@ -32,7 +32,17 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'tenant_id' =>  Tenant::query()->inRandomOrder()->value('id') ?? Tenant::factory(),
+            'employee_id' => null,
+            'avatar_url' => null,
+            'is_active' => true,
         ];
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn () => [
+            'is_active' => false,
+        ]);
     }
 
     /**

@@ -19,10 +19,11 @@ class TenantFactory extends Factory
     protected $model = Tenant::class;
     public function definition(): array
     {
-        $companyName = fake()->company().' - '.Str::random(5);
+        $companyName = fake()->unique()->company();
         return [
             'name' => $companyName,
             'slug' => Str::slug($companyName),
+            'domain' => fake()->optional()->domainName(),
         ];
     }
 }

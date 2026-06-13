@@ -13,7 +13,7 @@ use Database\Factories\Shared\TenantFactory;
 use App\Models\User;
 
 
-#[Fillable(["name","slug"])]
+#[Fillable(["name","slug", "domain"])]
 class Tenant extends Model
 {
     use HasUlids, HasFactory;

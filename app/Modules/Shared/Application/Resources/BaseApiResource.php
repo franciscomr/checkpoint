@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 abstract class BaseApiResource extends JsonResource
 {
-    abstract protected function resourceAttributes(): array;
+    abstract protected function data(Request $request): array;
 
     public function toArray(Request $request): array
     {
-        return $this->resourceAttributes();
+        return array_merge(
+            ['id' => $this->id],
+            $this->data($request)
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Auth\Application\Resources\AuthResource;
 use App\Modules\Auth\DTO\LoginDTO;
 use App\Modules\Auth\Requests\LoginRequest;
 use App\Modules\Auth\Services\LoginService;
@@ -39,15 +40,10 @@ class AuthController extends Controller
             ->plainTextToken;
 
         return ApiResponse::success(
-            data: [
+            data: new AuthResource([
                 'token' => $token,
-                'token_type' => 'Bearer',
-
-                'user' => UserResource::make(
-                    $user->load('roles')
-                ),
-            ],
-
+                'user' => $user->load('roles'),
+            ]),
             message: 'Login successful'
         );
     }

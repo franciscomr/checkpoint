@@ -1,7 +1,9 @@
 <?php
 
-use App\Modules\Auth\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Modules\Auth\Controllers\AuthController;
+use App\Modules\Auth\Controllers\MeController;
+use App\Modules\Auth\Controllers\LogoutController;
 
 Route::prefix('v1')->group(function () {
     Route::get('me', function () {
@@ -18,6 +20,11 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::post('/login', [AuthController::class, 'login'])->name('post.login');
+
+    Route::middleware(['auth:sanctum',])->get('/me', MeController::class);
+
+
+    Route::middleware('auth:sanctum')->post('/logout', LogoutController::class);
 
 });
 
