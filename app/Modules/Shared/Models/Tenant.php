@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Database\Factories\Shared\TenantFactory;
+use App\Modules\Shared\Database\Factories\TenantFactory;
 
 use App\Models\User;
 
@@ -40,7 +40,7 @@ class Tenant extends Model
         return $this->hasMany(User::class);
     }
 
-        protected static function newFactory()
+    protected static function newFactory()
     {
         return TenantFactory::new();
     }

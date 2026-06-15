@@ -16,13 +16,14 @@ use App\Modules\Shared\Models\Tenant;
 use App\Modules\Shared\Models\Employee;
 use App\Modules\Shared\Models\Role;
 use Laravel\Sanctum\HasApiTokens;
+use App\Modules\Authorization\Traits\HasRolesAndPermissions;
 
 #[Fillable(['name', 'email', 'password', 'tenant_id', 'employee_id', 'avatar_url', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, BelongsToTenant, HasApiTokens;
+    use HasFactory, Notifiable, BelongsToTenant, HasApiTokens, HasRolesAndPermissions;
 
     /**
      * Get the attributes that should be cast.

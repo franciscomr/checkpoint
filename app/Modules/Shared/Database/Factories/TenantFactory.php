@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Shared;
+namespace App\Modules\Shared\Database\Factories;
 
 use App\Modules\Shared\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;

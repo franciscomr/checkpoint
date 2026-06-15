@@ -3,8 +3,8 @@
 namespace App\Modules\Shared\Models;
 
 
+use App\Modules\Shared\Database\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use App\Modules\Shared\Models\TenantModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +17,6 @@ use App\Models\User;
 #[Fillable(['tenant_id', 'name', 'slug'])]
 class Role extends TenantModel
 {
-    /** @use HasFactory<RoleFactory> */
     use HasFactory;
 
     public function tenant(): BelongsTo
@@ -27,11 +26,17 @@ class Role extends TenantModel
 
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class)
+            ->withPivot('scope');
     }
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    protected static function newFactory()
+    {
+        return RoleFactory::new();
     }
 }
