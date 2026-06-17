@@ -2,7 +2,6 @@
 
 namespace App\Modules\Shared\Models;
 
-
 use App\Modules\Shared\Database\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;

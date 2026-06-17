@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Assets\Controllers\AssetController;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Auth\Controllers\MeController;
@@ -24,7 +25,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum',])->get('/me', MeController::class);
 
 
-    Route::middleware('auth:sanctum')->post('/logout', LogoutController::class);
+    Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
+
+    Route::post('/assets',[AssetController::class, 'store']);
 
 });
 

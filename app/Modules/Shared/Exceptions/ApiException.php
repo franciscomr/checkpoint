@@ -3,8 +3,7 @@
 namespace App\Modules\Shared\Exceptions;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+
 abstract class ApiException extends Exception
 {
     protected int $status = 500;
@@ -31,6 +30,49 @@ abstract class ApiException extends Exception
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    public function getErrorCode(): string
+    {
+        return $this->errorCode;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    public function getMeta(): array
+    {
+        return $this->meta;
+    }
+
+    public function setStatus(int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function setErrorCode(string $errorCode): static
+    {
+        $this->errorCode = $errorCode;
+
+        return $this;
+    }
+
+    public function setErrors(array $errors): static
+    {
+        $this->errors = $errors;
+
+        return $this;
+    }
+
+    public function setMeta(array $meta): static
+    {
+        $this->meta = $meta;
+
+        return $this;
     }
 
     public function toArray(): array

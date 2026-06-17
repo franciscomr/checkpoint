@@ -2,6 +2,7 @@
 
 namespace App\Modules\Shared\Database\Factories;
 
+use App\Modules\Shared\Database\Factories\Concerns\HasTenantFactoryState;
 use App\Modules\Shared\Models\Role;
 use App\Modules\Shared\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -12,6 +13,7 @@ use Illuminate\Support\Str;
  */
 class RoleFactory extends Factory
 {
+    use HasTenantFactoryState;
     /**
      * Define the model's default state.
      *

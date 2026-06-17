@@ -17,12 +17,20 @@ final class ApiResponse
         array $meta = []
     ): JsonResponse {
 
-        return response()->json([
-            'success' => true,
-            'message' => $message,
-            'data' => self::transformData($data),
-            'meta' => empty($meta) ? null : $meta,
-        ], $status);
+        $response = [
+        'success' => true,
+        'message' => $message,
+        'data' => self::transformData($data)
+        ];
+
+        if (! empty($meta)) {
+            $response['meta'] = $meta;
+        }
+
+        return response()->json(
+            $response,
+            $status
+        );
     }
 
     public static function created(

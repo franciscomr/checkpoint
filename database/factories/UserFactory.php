@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Modules\Shared\Database\Factories\Concerns\HasTenantFactoryState;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -13,6 +14,7 @@ use App\Modules\Shared\Models\Tenant;
  */
 class UserFactory extends Factory
 {
+    use HasTenantFactoryState;
     /**
      * The current password being used by the factory.
      */
