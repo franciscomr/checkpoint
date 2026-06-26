@@ -19,11 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class AssetCategory extends TenantModel
 {
-    use HasFactory, BelongsToTenant;
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'parent_id');
-    }
+    use HasFactory;
 
     public function children(): HasMany
     {

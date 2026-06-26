@@ -48,7 +48,7 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
-            $table->foreignId('assigned_employee_id')
+            $table->foreignUlid('assigned_employee_id')
                 ->nullable()
                 ->constrained('employees')
                 ->nullOnDelete();
@@ -85,9 +85,9 @@ return new class extends Migration
             $table->text('notes')
                 ->nullable();
 
-            $table->foreignUlid('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignUlid('updated_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignUlid('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

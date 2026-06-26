@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Modules\Shared\Models\Tenant;
-use App\Modules\Shared\Models\Employee;
+use App\Modules\Organization\Models\Employee;
 use App\Modules\Shared\Models\Role;
 use Laravel\Sanctum\HasApiTokens;
 use App\Modules\Authorization\Traits\HasRolesAndPermissions;

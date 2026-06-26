@@ -26,9 +26,10 @@ class AssetFactory extends Factory
     protected $model = Asset::class;
     public function definition(): array
     {
+        $tenant = Tenant::factory()->create();
         return [
 
-            'tenant_id' => Tenant::factory(),
+            'tenant_id' => $tenant->id,
 
             'asset_tag' => fake()->unique()->bothify('AST-#####'),
 
@@ -36,11 +37,11 @@ class AssetFactory extends Factory
 
             'name' => fake()->words(3, true),
 
-            'asset_category_id' => AssetCategory::factory(),
+            'asset_category_id' => AssetCategory::factory()->forTenant($tenant->id),
 
-            'asset_model_id' => AssetModel::factory(),
+            'asset_model_id' => AssetModel::factory()->forTenant($tenant->id),
 
-            'asset_status_id' => AssetStatus::factory(),
+            'asset_status_id' => AssetStatus::factory()->forTenant($tenant->id),
 
             'branch_id' => null,
 

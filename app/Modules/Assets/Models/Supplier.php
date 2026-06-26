@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Supplier extends TenantModel
 {
-    use HasFactory, BelongsToTenant;
+    use HasFactory;
     public function assets(): HasMany
     {
         return $this->hasMany(Asset::class);

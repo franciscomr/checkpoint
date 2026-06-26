@@ -19,8 +19,14 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('employee_code')->nullable();
             $table->foreignId('branch_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->index('branch_id');
             $table->foreignId('department_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->index('department_id');
             $table->foreignId('position_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->index('position_id');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('hire_date')->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

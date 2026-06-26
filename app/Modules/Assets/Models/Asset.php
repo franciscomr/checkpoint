@@ -3,10 +3,10 @@
 namespace App\Modules\Assets\Models;
 
 use App\Modules\Assets\Enums\AssetCriticality;
+use App\Modules\Organization\Models\Branch;
+use App\Modules\Organization\Models\Department;
+use App\Modules\Organization\Models\Employee;
 use App\Modules\Shared\Database\Factories\AssetFactory;
-use App\Modules\Shared\Models\Branch;
-use App\Modules\Shared\Models\Department;
-use App\Modules\Shared\Models\Employee;
 use App\Modules\Shared\Models\TenantModel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
     'tenant_id',
@@ -113,18 +114,23 @@ class Asset extends TenantModel
         );
     }
 
-    /*
-    public function documents(): HasMany
+    public function assignments(): HasMany
     {
-        return $this->hasMany(AssetDocument::class);
+        return $this->hasMany(
+            AssetAssignment::class
+        );
     }
-
+    public function currentAssignment(): HasOne
+    {
+        return $this->hasOne(
+            AssetAssignment::class
+        )->whereNull('returned_at');
+    }
     public function movements(): HasMany
     {
         return $this->hasMany(AssetMovement::class);
     }
 
-    */
 
     protected static function newFactory()
     {

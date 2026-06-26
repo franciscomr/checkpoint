@@ -16,15 +16,18 @@ return new class extends Migration
             $table->foreignUlid('tenant_id')->constrained()->cascadeOnDelete();
             $table->index('tenant_id');
             $table->string('name');
+            $table->string('code')->nullable();
             $table->string('address');
             $table->string('city');
             $table->string('state');
             $table->string('postal_code');
+            $table->string('phone')->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             $table->unique(['tenant_id', 'name']);
+            $table->unique(['tenant_id', 'code']);
         });
     }
 

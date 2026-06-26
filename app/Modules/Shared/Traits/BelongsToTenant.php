@@ -26,4 +26,11 @@ trait BelongsToTenant
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public static function withoutTenant()
+    {
+        return static::withoutGlobalScope(
+            TenantScope::class
+        );
+    }
 }

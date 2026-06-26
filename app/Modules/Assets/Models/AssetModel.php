@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class AssetModel extends TenantModel
 {
-    use HasFactory, BelongsToTenant;
+    use HasFactory;
     public function category(): BelongsTo
     {
         return $this->belongsTo(

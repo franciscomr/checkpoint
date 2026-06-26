@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->foreignUlid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->index('tenant_id');
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->string('code')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unique(['department_id', 'name']);

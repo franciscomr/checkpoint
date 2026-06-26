@@ -18,11 +18,6 @@ class Role extends TenantModel
 {
     use HasFactory;
 
-    public function tenant(): BelongsTo
-    {
-        return $this->belongsTo(Tenant::class);
-    }
-
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class)
