@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'central_domains' => array_map(
+        'trim',
+        explode(',', env('APP_CENTRAL_DOMAIN', 'checkpoint.test'))
+    ),
+
 ];

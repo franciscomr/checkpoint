@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Modules\Shared\Contracts\TenantResolverInterface;
+use App\Modules\Shared\Services\DomainTenantResolver;
+use App\Modules\Shared\Services\TenantManager;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +18,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->scoped(
+            TenantManager::class,
+            fn () => new TenantManager
+        );
+        $this->app->bind(
+            TenantResolverInterface::class,
+            DomainTenantResolver::class
+        );
     }
 
     /**
@@ -24,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->loadMigrationsFrom(base_path('app/Modules/Shared/Database/migrations'));
     }
 
     /**
