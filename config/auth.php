@@ -114,4 +114,8 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'login_throttle' => [
+        'max_attempts' => env('APP_LOGIN_MAX_ATTEMPTS', 3),
+        'decay_seconds' => env('APP_LOGIN_DECAY_SECONDS', 60),
+    ],
 ];
