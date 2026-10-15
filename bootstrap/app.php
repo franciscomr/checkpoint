@@ -17,8 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // 1. OBLIGATORIO: Pila GLOBAL con prepend
+        // Esto garantiza que TenantMiddleware corra ANTES de la sesión, auth y cualquier ruta
+        $middleware->prepend(TenantMiddleware::class);
         $middleware->web(append: [
-            TenantMiddleware::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);

@@ -18,10 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->scoped(
-            TenantManager::class,
-            fn () => new TenantManager
-        );
+        $this->app->scoped(TenantManager::class);
         $this->app->bind(
             TenantResolverInterface::class,
             DomainTenantResolver::class

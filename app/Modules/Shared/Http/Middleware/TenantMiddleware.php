@@ -22,8 +22,8 @@ class TenantMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $tenant = $this->tenantResolver->resolve();
+
         if ($tenant) {
             $this->tenantManager->setTenant($tenant);
         }
