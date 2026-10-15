@@ -1,6 +1,6 @@
 import type { Directive } from 'vue';
 import type { Auth } from '@/types/auth';
-
+import { route as routeFn } from '../../vendor/tightenco/ziggy';
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
     interface ImportMetaEnv {
@@ -35,4 +35,8 @@ declare module 'vue' {
         $page: Page;
         $headManager: ReturnType<typeof createHeadManager>;
     }
+}
+
+declare global {
+    const route: typeof routeFn;
 }

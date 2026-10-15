@@ -32,6 +32,15 @@ export default defineConfig({
         }),
     ]),
     server: {
+        host: '127.0.0.1', // Forzar IPv4 en lugar de [::1] / localhost
+        port: 5173,
+        cors: {
+            origin: true, // Permitir solicitudes CORS desde acme.checkpoint.test
+            credentials: true,
+        },
+        hmr: {
+            host: '127.0.0.1',
+        },
         watch: {
             ignored: [
                 '**/.agents/**',

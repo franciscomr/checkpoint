@@ -70,10 +70,9 @@ class TenantException extends RuntimeException implements RendersInertiaErrorInt
     public static function contextNotSet(string $model): self
     {
         return new self(
-            message: "Tenant context is not set while querying [{$model}].  ruta:  ".request()->fullUrl()
-            .'Ensure TenantMiddleware ran or the tenant was restored in this job.',
-            httpStatus: Response::HTTP_INTERNAL_SERVER_ERROR, // 500
-            userFacingMessage: 'Ocurrió un error inesperado.',
+            message: "Tenant context is not set while querying [{$model}]. Ensure TenantMiddleware ran or the tenant was restored in this job.",
+            httpStatus: Response::HTTP_INTERNAL_SERVER_ERROR,
+            userFacingMessage: 'Ocurrió un error inesperado de contexto.',
         );
     }
 
